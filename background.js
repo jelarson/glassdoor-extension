@@ -3,17 +3,13 @@
 // found in the LICENSE file.
 
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set(
-    {
-      jobInfo: {
-        list: [],
-        // subtitles: true,
-      },
+  chrome.storage.sync.set({
+    jobInfo: {
+      list: [],
+      // subtitles: true,
     },
-    function () {
-      console.log("Jesse's extension")
-    }
-  )
+    running: false,
+  })
   // chrome.declarativeContent.onPageChanged.removeRules(undefined, () => {
   //   chrome.declarativeContent.onPageChanged.addRules([
   //     {

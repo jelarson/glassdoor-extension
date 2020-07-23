@@ -21,32 +21,48 @@ const bannedTerms = [
   'backend',
   ' lead',
   '.net',
+  'cybercoders',
 ]
 const acceptedTerms = ['entry', 'junior', ' jr', 'react', 'intern', 'javascript']
 
 function jobGetter() {
-  console.log('i am running!')
   const jobList = document.querySelectorAll('.jobContainer')
-  jobList.forEach((job) => {
-    const saveTest = bannedTerms.every((word) => !job.innerText.toLowerCase().includes(word))
-    if (saveTest) {
-      const saveTest2 = acceptedTerms.some((word) => job.innerText.toLowerCase().includes(word))
+  let currentArr
+  chrome.storage.sync.get('jobInfo', (data) => {
+    currentArr = [...data.jobInfo.list]
+    console.log('data', data)
+    jobList.forEach((job) => {
+      const saveTest = bannedTerms.every((word) => !job.innerText.toLowerCase().includes(word))
+      if (saveTest) {
+        const saveTest2 = acceptedTerms.some((word) => job.innerText.toLowerCase().includes(word))
 
-      if (saveTest2) {
-        linkArr.push(job.querySelector('a').href)
+        if (saveTest2) {
+          // const currentArr = []
+          // chrome.storage.synch.get('jobInfo', data => currentArr.push(data.jobInfo.list))
+          currentArr.push(job.querySelector('a').href)
+          linkArr.push(job.querySelector('a').href)
+        }
       }
-    }
+    })
+    chrome.storage.sync.set({
+      jobInfo: {
+        list: currentArr,
+      },
+    })
   })
+  // const timer = setTimeout(() => {
   setTimeout(() => {
     const nextPageExist = document.querySelector('[data-test="pagination-next"]')
-    if (nextPageExist) {
+    if (nextPageExist && !nextPageExist.querySelector('.disabled')) {
       nextPageExist.click()
-      console.log('I was clicked!')
+      // console.log('I was clicked!')
       setTimeout(jobGetter, 5000)
       // } else {
+      //   clearTimeout(timer)
     }
   }, (Math.floor(Math.random() * Math.floor(10)) + 8) * 1000)
-  console.log(linkArr)
+  console.log('linkArr', linkArr)
+  console.log('memory array', currentArr)
 }
 
 jobGetter()
