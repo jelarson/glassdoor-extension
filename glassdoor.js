@@ -7,10 +7,25 @@
 // })
 
 const linkArr = []
-const bannedTerms = ['php', 'senior', ' sr', 'c+', 'c#', ' ux', 'backend', ' lead', '.net']
+const bannedTerms = [
+  'php',
+  'mid ',
+  'mid-',
+  'ruby',
+  'senior',
+  ' sr',
+  'sr ',
+  'c+',
+  'c#',
+  ' ux',
+  'backend',
+  ' lead',
+  '.net',
+]
 const acceptedTerms = ['entry', 'junior', ' jr', 'react', 'intern', 'javascript']
 
 function jobGetter() {
+  console.log('i am running!')
   const jobList = document.querySelectorAll('.jobContainer')
   jobList.forEach((job) => {
     const saveTest = bannedTerms.every((word) => !job.innerText.toLowerCase().includes(word))
