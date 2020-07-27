@@ -26,6 +26,7 @@ const bannedTerms = [
 const acceptedTerms = ['entry', 'junior', ' jr', 'react', 'intern', 'javascript']
 
 function jobGetter() {
+  console.log('this is a test to show I am running')
   const jobList = document.querySelectorAll('.jobContainer')
   let currentArr
   chrome.storage.sync.get('jobInfo', (data) => {
@@ -40,6 +41,8 @@ function jobGetter() {
           // const currentArr = []
           // chrome.storage.synch.get('jobInfo', data => currentArr.push(data.jobInfo.list))
           currentArr.push(job.querySelector('a').href)
+          currentArr.push('\n')
+          currentArr.push('\n')
           linkArr.push(job.querySelector('a').href)
         }
       }
@@ -57,12 +60,19 @@ function jobGetter() {
       nextPageExist.click()
       // console.log('I was clicked!')
       setTimeout(jobGetter, 5000)
-      // } else {
-      //   clearTimeout(timer)
+    } else {
+      chrome.storage.sync.set({
+        running: false,
+      })
     }
   }, (Math.floor(Math.random() * Math.floor(10)) + 8) * 1000)
   console.log('linkArr', linkArr)
   console.log('memory array', currentArr)
 }
 
-jobGetter()
+// index js. change listener to start function
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  if (namespace === 'sync' && changes.running) {
+    if (changes.running.newValue) jobGetter()
+  }
+})
