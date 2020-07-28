@@ -1,7 +1,7 @@
 {
   "name": "Jesse's Extension",
   "version": "0.0.1",
-  "description": "🙂",
+  "description": "🤠",
   "permissions": ["activeTab", "storage"],
   "background": {
     "scripts": ["background.js"],
@@ -10,17 +10,17 @@
   "browser_action": {
     "default_popup": "index.html",
     "default_icon": {
-      "16": "images/f1_16.png",
-      "32": "images/f1_32.png",
-      "48": "images/f1_48.png",
-      "128": "images/f1_128.png"
+      "16": "images/favicon-16x16.png",
+      "32": "images/favicon-32x32.png",
+      "48": "images/android-chrome-192x192.png",
+      "128": "images/android-chrome-192x192.png"
     }
   },
   "icons": {
-    "16": "images/f1_16.png",
-    "32": "images/f1_32.png",
-    "48": "images/f1_48.png",
-    "128": "images/f1_128.png"
+    "16": "images/favicon-16x16.png",
+    "32": "images/favicon-32x32.png",
+    "48": "images/android-chrome-192x192.png",
+    "128": "images/android-chrome-192x192.png"
   },
   "content_scripts": [
     {
