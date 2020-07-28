@@ -47,9 +47,9 @@ document.addEventListener('DOMContentLoaded', function () {
 chrome.storage.onChanged.addListener((changes, namespace) => {
   if (namespace === 'sync' && changes.running) {
     if (changes.running.newValue) {
-      // if true, change styles
+      document.getElementById('progress-message').className = 'progress-message-visible'
     } else {
-      // if false, change styles
+      document.getElementById('progress-message').className = 'progress-message-hidden'
     }
   }
 })

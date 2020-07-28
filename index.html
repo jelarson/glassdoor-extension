@@ -3,12 +3,19 @@
 <head>
   <meta charset='UTF-8'>
   <title></title>
-  // style diplay = none
+  <style>
+    .progress-message-hidden {
+      display: none;
+    }
+    .progress-message-visible {
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <div>
     <button id='start'>Start Search</button>
-    <p class='progress-message'>In Progress</p>
+    <p id='progress-message' class='progress-message-hidden'>Searching...</p>
     <button id='download'>Download Results</button>
     <button id='clear'>Clear Results</button>
   </div>
