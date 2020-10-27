@@ -1,33 +1,10 @@
-// chrome.storage.sync.get('jobInfo', (data) => {
-//   if (data.jobInfo.list.length === 0) {
-//     console.log('')
-//   }
-//   netflixExtConfig = data.settings
-//   netflixScript()
-// })
-
 const linkArr = []
-const bannedTerms = [
-  'php',
-  'mid ',
-  'mid-',
-  'ruby',
-  'senior',
-  ' sr',
-  'sr ',
-  'c+',
-  'c#',
-  ' ux',
-  'backend',
-  ' lead',
-  '.net',
-  'cybercoders',
-]
-const acceptedTerms = ['entry', 'junior', ' jr', 'react', 'intern', 'javascript']
+const bannedTerms = ['mid ', 'mid-', 'ruby', 'senior', ' sr', 'sr ', 'c+', 'c#', ' lead', '.net', 'cybercoders']
+const acceptedTerms = ['entry', 'junior', ' jr', 'react', 'intern', 'javascript', 'associate']
 
 function jobGetter() {
-  console.log('this is a test to show I am running')
-  const jobList = document.querySelectorAll('.jobContainer')
+  // const jobList = document.querySelectorAll('.jobContainer')
+  const jobList = document.querySelectorAll('.flex-column')
   let currentArr
   chrome.storage.sync.get('jobInfo', (data) => {
     currentArr = [...data.jobInfo.list]
@@ -38,8 +15,6 @@ function jobGetter() {
         const saveTest2 = acceptedTerms.some((word) => job.innerText.toLowerCase().includes(word))
 
         if (saveTest2) {
-          // const currentArr = []
-          // chrome.storage.synch.get('jobInfo', data => currentArr.push(data.jobInfo.list))
           currentArr.push(job.querySelector('a').href)
           currentArr.push('\n')
           currentArr.push('\n')
@@ -53,12 +28,10 @@ function jobGetter() {
       },
     })
   })
-  // const timer = setTimeout(() => {
   setTimeout(() => {
     const nextPageExist = document.querySelector('[data-test="pagination-next"]')
     if (nextPageExist && !nextPageExist.querySelector('.disabled')) {
       nextPageExist.click()
-      // console.log('I was clicked!')
       setTimeout(jobGetter, 5000)
     } else {
       chrome.storage.sync.set({
@@ -70,7 +43,6 @@ function jobGetter() {
   console.log('memory array', currentArr)
 }
 
-// index js. change listener to start function
 chrome.storage.onChanged.addListener((changes, namespace) => {
   if (namespace === 'sync' && changes.running) {
     if (changes.running.newValue) jobGetter()
